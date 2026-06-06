@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentasi - Sistem Booking Lapangan Olahraga</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f0f4f8;
+            color: #1a202c;
+        }
+
+        /* ===== SLIDE BASE ===== */
+        .slide {
+            width: 297mm;
+            min-height: 210mm;
+            margin: 0 auto 20px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            page-break-after: always;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        /* ===== SLIDE 1 - COVER ===== */
+        .slide-cover {
+            background: linear-gradient(135deg, #0f4c2a 0%, #1a7a4a 50%, #2ecc71 100%);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .slide-cover .badge-top {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: inline-block;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .slide-cover h1 {
+            font-size: 42px;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .slide-cover h1 span {
+            color: #a8f0c6;
+        }
+
+        .slide-cover .subtitle {
+            font-size: 16px;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 30px;
+        }
+
+        .slide-cover .divider {
+            width: 60px;
+            height: 4px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 2px;
+            margin: 20px auto;
+        }
+
+        .slide-cover .meta {
+            font-size: 13px;
+            color: rgba(255,255,255,0.75);
+        }
+
+        .slide-cover .icon-big {
+            font-size: 70px;
+            margin-bottom: 15px;
+        }
+
+        /* ===== SLIDE HEADER ===== */
+        .slide-header {
+            background: linear-gradient(90deg, #1a7a4a, #2ecc71);
+            padding: 18px 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .slide-header .num {
+            background: rgba(255,255,255,0.25);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .slide-header h2 {
+            font-size: 22px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .slide-header p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.8);
+            margin-top: 2px;
+        }
+
+        /* ===== SLIDE BODY ===== */
+        .slide-body {
+            padding: 30px 40px;
+            flex: 1;
+        }
+
+        /* ===== SLIDE FOOTER ===== */
+        .slide-footer {
+            background: #f8f9fa;
+            border-top: 2px solid #e9ecef;
+            padding: 10px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #6c757d;
+        }
+
+        /* ===== COMPONENTS ===== */
+        .card-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .card-grid-2 { grid-template-columns: 1fr 1fr; }
+        .card-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+        .card-grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+        .info-card {
+            background: #f8fffe;
+            border: 1.5px solid #c3e6cb;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .info-card .card-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .info-card h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a7a4a;
+            margin-bottom: 6px;
+        }
+
+        .info-card p {
+            font-size: 12px;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1a7a4a, #2ecc71);
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .stat-card .num {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .stat-card .label {
+            font-size: 11px;
+            opacity: 0.85;
+            margin-top: 6px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .step-num {
+            background: #1a7a4a;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 3px;
+        }
+
+        .step-content p {
+            font-size: 12px;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-green { background: #d4edda; color: #155724; }
+        .badge-blue  { background: #d1ecf1; color: #0c5460; }
+        .badge-yellow{ background: #fff3cd; color: #856404; }
+        .badge-red   { background: #f8d7da; color: #721c24; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        table th {
+            background: #1a7a4a;
+            color: white;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 9px 12px;
+            border-bottom: 1px solid #e9ecef;
+            color: #333;
+        }
+
+        table tr:nth-child(even) td { background: #f8fffe; }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+            border-left: 5px solid #1a7a4a;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+        }
+
+        .highlight-box h3 {
+            font-size: 14px;
+            color: #1a7a4a;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .highlight-box p {
+            font-size: 12px;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a7a4a;
+            border-bottom: 2px solid #c3e6cb;
+            padding-bottom: 6px;
+            margin-bottom: 14px;
+        }
+
+        ul.check-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul.check-list li {
+            font-size: 12px;
+            color: #4a5568;
+            padding: 5px 0;
+            padding-left: 22px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        ul.check-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #1a7a4a;
+            font-weight: 700;
+        }
+
+        .code-block {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 14px 18px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: #a8f0c6;
+            line-height: 1.6;
+            margin-top: 8px;
+        }
+
+        .code-block .comment { color: #64748b; }
+        .code-block .keyword { color: #7dd3fc; }
+        .code-block .string  { color: #fde68a; }
+
+        /* ===== PRINT ===== */
+        @media print {
+            body { background: white; }
+            .slide {
+                margin: 0;
+                box-shadow: none;
+                width: 100%;
+            }
+            .no-print { display: none; }
+        }
+
+        /* ===== PRINT BUTTON ===== */
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1a7a4a;
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(26,122,74,0.4);
+            z-index: 999;
+        }
+
+        .print-btn:hover { background: #145c38; }
+    </style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ Simpan PDF</button>
+
+<!-- ==================== SLIDE 1 - COVER ==================== -->
+<div class="slide slide-cover">
+    <div class="icon-big">🏟️</div>
+    <div class="badge-top">Soal Praktik Web Teknologi · LKS Kabupaten Subang</div>
+    <h1>Sistem Pengelolaan<br><span>Booking Lapangan</span><br>Olahraga</h1>
+    <div class="subtitle">Studi Kasus 3 — Web Application dengan PHP Native & MySQL</div>
+    <div class="divider"></div>
+    <div class="meta">
+        PHP Native &nbsp;·&nbsp; MySQL &nbsp;·&nbsp; Bootstrap 5 &nbsp;·&nbsp; CRUD + Autentikasi
+    </div>
+</div>
+
+<!-- ==================== SLIDE 2 - DESKRIPSI MASALAH ==================== -->
+<div class="slide">
+    <div class="slide-header">
+        <div class="num">1</div>
+        <div>
+            <h2>Latar Belakang & Deskripsi Masalah</h2>
+            <p>Mengapa aplikasi ini dibutuhkan?</p>
+        </div>
+    </div>
+    <div class="slide-body">
+        <div class="two-col">
+            <div>
+                <div class="highlight-box">
+                    <h3>🏢 Kondisi Saat Ini</h3>
+                    <p>Sebuah tempat olahraga memiliki beberapa admin lapangan. Setiap admin bertugas mencatat data booking yang masuk secara manual, sehingga rentan terjadi kesalahan dan tumpang tindih data.</p>
+                </div>
+                <div class="highlight-box">
+                    <h3>🔒 Masalah Keamanan Data</h3>
+                    <p>Data booking milik satu admin <strong>tidak boleh</strong> terlihat, diedit, atau dihapus oleh admin lain. Diperlukan sistem isolasi data per pengguna.</p>
+                </div>
+                <div class="highlight-box">
+                    <h3>📋 Solusi yang Dibutuhkan</h3>
+                    <p>Aplikasi web terpusat dengan autentikasi, CRUD data booking, dan filter data berdasarkan akun admin yang sedang login.</p>
+                </div>
+            </div>
+            <div>
+                <p class="section-title">Tujuan Proyek</p>
+                <div class="step-item">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h4>Pengelolaan Booking Digital</h4>
+                        <p>Mencatat data booking lapangan olahraga secara terstruktur dan aman.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h4>Autentikasi Admin</h4>
+                        <p>Register dan login khusus untuk masing-masing admin lapangan.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h4>Isolasi Data Per Admin</h4>
+                        <p>Admin hanya melihat dan mengelola data booking miliknya sendiri.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">4</div>
+                    <div class="step-content">
+                        <h4>Laporan yang Dapat Dicetak</h4>
+                        <p>Admin bisa mencetak laporan booking untuk keperluan administrasi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-footer">
+        <span>🏟️ Sistem Booking Lapangan Olahraga</span>
+        <span>Slide 2 / 7</span>
+    </div>
+</div>
+
+<!-- ==================== SLIDE 3 - TEKNOLOGI ==================== -->
+<div class="slide">
+    <div class="slide-header">
+        <div class="num">2</div>
+        <div>
+            <h2>Teknologi & Tools yang Digunakan</h2>
+            <p>Stack teknologi dalam pengembangan aplikasi</p>
+        </div>
+    </div>
+    <div class="slide-body">
+        <div class="card-grid card-grid-4" style="margin-bottom:20px;">
+            <div class="info-card" style="text-align:center;">
+                <div class="card-icon">🐘</div>
+                <h3>PHP Native</h3>
+                <p>Backend tanpa framework — lebih mudah dipahami dan dikontrol penuh</p>
+            </div>
+            <div class="info-card" style="text-align:center;">
+                <div class="card-icon">🗄️</div>
+                <h3>MySQL</h3>
+                <p>Database relasional untuk menyimpan data user dan booking lapangan</p>
+            </div>
+            <div class="info-card" style="text-align:center;">
+                <div class="card-icon">🎨</div>
+                <h3>Bootstrap 5</h3>
+                <p>CSS framework untuk tampilan responsif, rapi, dan modern</p>
+            </div>
+            <div class="info-card" style="text-align:center;">
+                <div class="card-icon">🖥️</div>
+                <h3>XAMPP</h3>
+                <p>Web server lokal Apache + MySQL untuk menjalankan aplikasi di komputer</p>
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div>
+                <p class="section-title">Keunggulan Teknologi Pilihan</p>
+                <ul class="check-list">
+                    <li>PHP Native mudah dipelajari dan tidak perlu instalasi framework</li>
+                    <li>MySQL gratis, stabil, dan terintegrasi dengan XAMPP</li>
+                    <li>Bootstrap 5 membuat tampilan otomatis responsif di HP & laptop</li>
+                    <li>Bootstrap Icons untuk ikon tanpa perlu gambar tambahan</li>
+                    <li>MySQLi Prepared Statements untuk keamanan query database</li>
+                    <li>Session PHP untuk manajemen autentikasi yang sederhana</li>
+                </ul>
+            </div>
+            <div>
+                <p class="section-title">Fitur Keamanan</p>
+                <ul class="check-list">
+                    <li><strong>password_hash()</strong> — password tidak disimpan polos</li>
+                    <li><strong>Prepared Statements</strong> — cegah SQL Injection</li>
+                    <li><strong>htmlspecialchars()</strong> — cegah serangan XSS</li>
+                    <li><strong>Session Check</strong> — proteksi semua halaman</li>
+                    <li><strong>user_id filter</strong> — isolasi data per admin</li>
+                    <li><strong>WHERE id AND user_id</strong> — amankan edit & hapus</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="slide-footer">
+        <span>🏟️ Sistem Booking Lapangan Olahraga</span>
+        <span>Slide 3 / 7</span>
+    </div>
+</div>
+
+<!-- ==================== SLIDE 4 - DESAIN DATABASE ==================== -->
+<div class="slide">
+    <div class="slide-header">
+        <div class="num">3</div>
+        <div>
+            <h2>Desain Database</h2>
+            <p>Struktur tabel dan relasi antar data</p>
+        </div>
+    </div>
+    <div class="slide-body">
+        <div class="two-col">
+            <div>
+                <p class="section-title">📋 Tabel: users</p>
+                <table>
+                    <thead>
+                        <tr><th>Field</th><th>Tipe</th><th>Keterangan</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>id</strong></td><td>INT (PK)</td><td>ID unik auto increment</td></tr>
+                        <tr><td>name</td><td>VARCHAR(100)</td><td>Nama lengkap admin</td></tr>
+                        <tr><td>email</td><td>VARCHAR(100)</td><td>Email unik untuk login</td></tr>
+                        <tr><td>password</td><td>VARCHAR(255)</td><td>Password ter-hash (bcrypt)</td></tr>
+                        <tr><td>created_at</td><td>TIMESTAMP</td><td>Waktu akun dibuat</td></tr>
+                        <tr><td>updated_at</td><td>TIMESTAMP</td><td>Waktu akun diperbarui</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <p class="section-title">📋 Tabel: booking</p>
+                <table>
+                    <thead>
+                        <tr><th>Field</th><th>Tipe</th><th>Keterangan</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>id</strong></td><td>INT (PK)</td><td>ID unik booking</td></tr>
+                        <tr><td><strong>user_id</strong></td><td>INT (FK)</td><td>🔗 Relasi ke tabel users</td></tr>
+                        <tr><td>nama_pemesan</td><td>VARCHAR(100)</td><td>Nama pelanggan</td></tr>
+                        <tr><td>jenis_lapangan</td><td>VARCHAR(100)</td><td>Badminton, Futsal, dll</td></tr>
+                        <tr><td>tanggal_booking</td><td>DATE</td><td>Tanggal booking</td></tr>
+                        <tr><td>jam_mulai</td><td>TIME</td><td>Jam mulai main</td></tr>
+                        <tr><td>jam_selesai</td><td>TIME</td><td>Jam selesai main</td></tr>
+                        <tr><td>total_bayar</td><td>INT</td><td>Jumlah pembayaran</td></tr>
+                        <tr><td>status_pembayaran</td><td>VARCHAR(50)</td><td>Lunas / DP / Belum Lunas</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div style="margin-top: 16px; background: #f0fff4; border: 1.5px solid #c3e6cb; border-radius: 10px; padding: 14px 20px; display: flex; align-items: center; gap: 16px;">
+            <div style="font-size: 28px;">🔗</div>
+            <div>
+                <strong style="color:#1a7a4a; font-size:13px;">Relasi Database</strong>
+                <p style="font-size:12px; color:#4a5568; margin-top:3px;">
+                    Tabel <code>booking.user_id</code> → FOREIGN KEY → <code>users.id</code> &nbsp;|&nbsp;
+                    Setiap data booking terhubung langsung dengan admin yang membuatnya.
+                    Saat admin login, sistem otomatis memfilter data hanya milik admin tersebut.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="slide-footer">
+        <span>🏟️ Sistem Booking Lapangan Olahraga</span>
+        <span>Slide 4 / 7</span>
+    </div>
+</div>
+
+<!-- ==================== SLIDE 5 - FITUR APLIKASI ==================== -->
+<div class="slide">
+    <div class="slide-header">
+        <div class="num">4</div>
+        <div>
+            <h2>Fitur-Fitur Aplikasi</h2>
+            <p>Semua fitur yang diimplementasikan dalam proyek</p>
+        </div>
+    </div>
+    <div class="slide-body">
+        <div class="card-grid card-grid-3">
+            <div class="info-card">
+                <div class="card-icon">📝</div>
+                <h3>Register & Login</h3>
+                <ul class="check-list" style="margin-top:6px;">
+                    <li>Form register dengan validasi lengkap</li>
+                    <li>Email tidak boleh duplikat</li>
+                    <li>Password di-hash dengan bcrypt</li>
+                    <li>Session disimpan saat login berhasil</li>
+                    <li>Tombol logout hapus session</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <div class="card-icon">📊</div>
+                <h3>Dashboard</h3>
+                <ul class="check-list" style="margin-top:6px;">
+                    <li>Tampilkan nama admin login</li>
+                    <li>Total booking milik admin</li>
+                    <li>Total booking lunas</li>
+                    <li>Total booking DP / belum lunas</li>
+                    <li>5 data booking terbaru</li>
+                    <li>Total pendapatan keseluruhan</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <div class="card-icon">➕</div>
+                <h3>Tambah Booking</h3>
+                <ul class="check-list" style="margin-top:6px;">
+                    <li>Form input lengkap semua field</li>
+                    <li>Pilih jenis lapangan (dropdown)</li>
+                    <li>Input tanggal & jam booking</li>
+                    <li>Status: Lunas / DP / Belum Lunas</li>
+                    <li>Auto isi user_id dari session</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <div class="card-icon">📋</div>
+                <h3>Daftar & Filter Booking</h3>
+                <ul class="check-list" style="margin-top:6px;">
+                    <li>Tabel data booking milik admin</li>
+                    <li>Filter by nama pemesan (search)</li>
+                    <li>Filter by jenis lapangan</li>
+                    <li>Filter by status pembayaran</li>
+                    <li>Badge warna tiap status</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <div class="card-icon">✏️</div>
+                <h3>Edit & Hapus</h3>
+                <ul class="check-list" style="margin-top:6px;">
+                    <li>Form edit pre-filled data lama</li>
+                    <li>Cek kepemilikan sebelum edit</li>
+                    <li>Konfirmasi modal sebelum hapus</li>
+                    <li>WHERE id AND user_id di query</li>
+                    <li>Pesan error jika akses ditolak</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <div class="card-icon">🖨️</div>
+                <h3>Laporan Cetak</h3>
+                <ul class="check-list" style="margin-top:6px;">
+                    <li>Tampil data booking admin login</li>
+                    <li>Filter rentang tanggal</li>
+                    <li>Nama admin & tanggal cetak</li>
+                    <li>Total booking & pendapatan</li>
+                    <li>Cetak via window.print()</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="slide-footer">
+        <span>🏟️ Sistem Booking Lapangan Olahraga</span>
+        <span>Slide 5 / 7</span>
+    </div>
+</div>
+
+<!-- ==================== SLIDE 6 - STRUKTUR & KEAMANAN ==================== -->
+<div class="slide">
+    <div class="slide-header">
+        <div class="num">5</div>
+        <div>
+            <h2>Struktur Folder & Keamanan Data</h2>
+            <p>Organisasi kode dan implementasi keamanan akses</p>
+        </div>
+    </div>
+    <div class="slide-body">
+        <div class="two-col">
+            <div>
+                <p class="section-title">📁 Struktur Folder Proyek</p>
+                <div style="background:#1e293b; border-radius:10px; padding:16px; font-family: 'Courier New', monospace; font-size: 12px; color: #e2e8f0; line-height: 2;">
+                    <span style="color:#7dd3fc;">booking_lapangan/</span><br>
+                    &nbsp;&nbsp;├── <span style="color:#a8f0c6;">config/</span><br>
+                    &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── database.php<br>
+                    &nbsp;&nbsp;├── <span style="color:#a8f0c6;">auth/</span><br>
+                    &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── login.php<br>
+                    &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── register.php<br>
+                    &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── logout.php<br>
+                    &nbsp;&nbsp;├── <span style="color:#a8f0c6;">booking/</span><br>
+                    &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── index.php<br>
+                    &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── create.php &amp; store.php<br>
+                    &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── edit.php &amp; update.php<br>
+                    &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── delete.php<br>
+                    &nbsp;&nbsp;├── <span style="color:#a8f0c6;">laporan/</span><br>
+                    &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── booking_print.php<br>
+                    &nbsp;&nbsp;├── <span style="color:#a8f0c6;">includes/</span> &nbsp;<span style="color:#64748b;">(sidebar, topbar)</span><br>
+                    &nbsp;&nbsp;├── <span style="color:#a8f0c6;">assets/css/</span> &nbsp;<span style="color:#64748b;">(style.css)</span><br>
+                    &nbsp;&nbsp;├── dashboard.php<br>
+                    &nbsp;&nbsp;└── <span style="color:#fde68a;">database.sql</span>
+                </div>
+            </div>
+            <div>
+                <p class="section-title">🔐 Implementasi Keamanan Data</p>
+
+                <div style="margin-bottom:12px;">
+                    <div style="background:#fff3cd; border-left:4px solid #ffc107; border-radius:6px; padding:10px 14px; margin-bottom:10px;">
+                        <strong style="font-size:12px; color:#856404;">Menampilkan Data (SELECT)</strong>
+                        <div class="code-block" style="margin-top:6px; font-size:10.5px;">
+                            <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> booking<br>
+                            <span class="keyword">WHERE</span> user_id = <span class="string">$_SESSION['user_id']</span><br>
+                            <span class="keyword">ORDER BY</span> id <span class="keyword">DESC</span>;
+                        </div>
+                    </div>
+                    <div style="background:#d1ecf1; border-left:4px solid #17a2b8; border-radius:6px; padding:10px 14px; margin-bottom:10px;">
+                        <strong style="font-size:12px; color:#0c5460;">Mengamankan Edit/Detail</strong>
+                        <div class="code-block" style="margin-top:6px; font-size:10.5px;">
+                            <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> booking<br>
+                            <span class="keyword">WHERE</span> id = <span class="string">$id</span><br>
+                            <span class="keyword">AND</span> user_id = <span class="string">$_SESSION['user_id']</span>;
+                        </div>
+                    </div>
+                    <div style="background:#f8d7da; border-left:4px solid #dc3545; border-radius:6px; padding:10px 14px;">
+                        <strong style="font-size:12px; color:#721c24;">Mengamankan Hapus</strong>
+                        <div class="code-block" style="margin-top:6px; font-size:10.5px;">
+                            <span class="keyword">DELETE FROM</span> booking<br>
+                            <span class="keyword">WHERE</span> id = <span class="string">$id</span><br>
+                            <span class="keyword">AND</span> user_id = <span class="string">$_SESSION['user_id']</span>;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-footer">
+        <span>🏟️ Sistem Booking Lapangan Olahraga</span>
+        <span>Slide 6 / 7</span>
+    </div>
+</div>
+
+<!-- ==================== SLIDE 7 - PENILAIAN & PENUTUP ==================== -->
+<div class="slide">
+    <div class="slide-header">
+        <div class="num">6</div>
+        <div>
+            <h2>Kriteria Penilaian & Kesimpulan</h2>
+            <p>Ringkasan fitur yang memenuhi kriteria penilaian</p>
+        </div>
+    </div>
+    <div class="slide-body">
+        <div class="two-col">
+            <div>
+                <p class="section-title">📊 Kriteria Penilaian (Total 100)</p>
+                <table>
+                    <thead>
+                        <tr><th>Aspek</th><th style="text-align:center;">Bobot</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Desain Database</td>
+                            <td style="text-align:center;">10</td>
+                            <td><span class="badge badge-green">✓ Selesai</span></td>
+                        </tr>
+                        <tr>
+                            <td>Relasi Database (user_id)</td>
+                            <td style="text-align:center;">10</td>
+                            <td><span class="badge badge-green">✓ Selesai</span></td>
+                        </tr>
+                        <tr>
+                            <td>Register</td>
+                            <td style="text-align:center;">10</td>
+                            <td><span class="badge badge-green">✓ Selesai</span></td>
+                        </tr>
+                        <tr>
+                            <td>Login & Logout</td>
+                            <td style="text-align:center;">10</td>
+                            <td><span class="badge badge-green">✓ Selesai</span></td>
+                        </tr>
+                        <tr>
+                            <td>Dashboard</td>
+                            <td style="text-align:center;">10</td>
+                            <td><span class="badge badge-green">✓ Selesai</span></td>
+                        </tr>
+                        <tr>
+                            <td>CRUD (Tambah, Edit, Hapus)</td>
+                            <td style="text-align:center;">20</td>
+                            <td><span class="badge badge-green">✓ Selesai</span></td>
+                        </tr>
+                        <tr>
+                            <td>Filter Data Per User</td>
+                            <td style="text-align:center;">10</td>
+                            <td><span class="badge badge-green">✓ Selesai</span></td>
+                        </tr>
+                        <tr>
+                            <td>Keamanan Akses Data</td>
+                            <td style="text-align:center;">10</td>
+                            <td><span class="badge badge-green">✓ Selesai</span></td>
+                        </tr>
+                        <tr>
+                            <td>Laporan Cetak</td>
+                            <td style="text-align:center;">5</td>
+                            <td><span class="badge badge-green">✓ Selesai</span></td>
+                        </tr>
+                        <tr>
+                            <td>UI/UX Responsif</td>
+                            <td style="text-align:center;">5</td>
+                            <td><span class="badge badge-green">✓ Selesai</span></td>
+                        </tr>
+                        <tr style="background:#d4edda;">
+                            <td><strong>TOTAL</strong></td>
+                            <td style="text-align:center;"><strong>100</strong></td>
+                            <td><span class="badge" style="background:#1a7a4a;color:white;">🎯 100%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <p class="section-title">🎯 Cara Menjalankan Aplikasi</p>
+                <div class="step-item">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h4>Siapkan XAMPP</h4>
+                        <p>Jalankan Apache dan MySQL dari XAMPP Control Panel.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h4>Letakkan Folder Proyek</h4>
+                        <p>Copy folder <code>booking_lapangan</code> ke dalam <code>htdocs/</code>.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h4>Akses Aplikasi</h4>
+                        <p><code>localhost/booking_lapangan/auth/login.php</code></p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">4</div>
+                    <div class="step-content">
+                        <h4>Daftar 2 Akun Testing</h4>
+                        <p>Buat dua akun berbeda untuk menguji isolasi data antar admin.</p>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg,#1a7a4a,#2ecc71); border-radius:10px; padding:16px; color:white; margin-top:14px; text-align:center;">
+                    <div style="font-size:24px; margin-bottom:6px;">🏆</div>
+                    <strong style="font-size:14px;">Proyek Siap Dinilai</strong>
+                    <p style="font-size:11px; opacity:0.9; margin-top:4px;">Semua 10 kriteria penilaian telah diimplementasikan dengan lengkap dan aman.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-footer">
+        <span>🏟️ Sistem Booking Lapangan Olahraga</span>
+        <span>Slide 7 / 7</span>
+    </div>
+</div>
+
+</body>
+</html>
